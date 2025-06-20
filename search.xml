@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Release RPI-SDR-TX Version 1.0.0</title>
+      <link href="/2025/06/20/Release-RPI-SDR-TX-Version-1-0-0/"/>
+      <url>/2025/06/20/Release-RPI-SDR-TX-Version-1-0-0/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/images/posts/8a20ecea6a5ed679a2ef19eaa3a61b3759e140fc97dd4a3753f754fa17af85b0.png" alt="cover"></p><h2 align="center"> RPI-SDR-TX Version 1.0.0 </h2><p>The <strong>RPI-SDR-TX Version 1.0.0</strong> is the <strong>first release</strong> version. This version includes:</p><ul><li><a href="https://github.com/KaliAssistant/rpitx"><code>rpitx</code></a> - Raspberry Pi RF transmission library &amp; core by <a href="https://github.com/F5OEO/rpitx">F5OEO</a></li><li><a href="https://github.com/KaliAssistant/libusbgx"><code>libusbgx</code></a> - Linux usb-gadget utilities library by <a href="https://github.com/linux-usb-gadgets/libusbgx">linux-usb-gadgets</a></li><li><a href="https://github.com/KaliAssistant/gt"><code>gt</code></a> - Linux usb-gadget configFS command line tools by <a href="https://github.com/linux-usb-gadgets/gt">linux-usb-gadgets</a></li><li><strong>image build script</strong> - Custom image build script based on <a href="https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-32-bit">raspberrypi os  12 armhf lite</a></li><li><strong>3DP-cases</strong> - 3D-printable case designs</li><li><a href="https://github.com/KaliAssistant/ws2812rpi_spi"><code>ws2812rpi_spi</code></a> - Control WS2812B NeoPixel via <a href="http://www.airspayce.com/mikem/bcm2835/">BCM2835-SPI library</a></li><li><strong>Install script</strong> - Install RPI-SDR-TX into your raspberrypi os</li><li><a href=""><code>inih</code></a> - ws2812rpi_spi config INI parser by <a href="https://github.com/benhoyt/inih">Ben Hoyt</a></li></ul><hr><h4 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h4><h5 id="1-Build-Image-Download-Links"><a href="#1-Build-Image-Download-Links" class="headerlink" title="1. Build Image Download Links"></a>1. Build Image Download Links</h5><ul><li><p><a href="https://github.com/KaliAssistant/rpi-sdr-tx/releases/tag/v1.0.0">https://github.com/KaliAssistant/rpi-sdr-tx/releases/tag/v1.0.0</a></p></li><li><p><a href="https://github.com/KaliAssistant/rpi-sdr-tx/releases/download/v1.0.0/v1.0.0_rpi-sdr-tx_rpi02w_armhf.img.xz">v1.0.0_rpi-sdr-tx_rpi02w_armhf.img.xz</a></p></li><li><p>sha256:</p><pre><code class="hljs plaintext">cd8915f197162dd197935948e6bbe3a26b3ab4a4899f4a8a91096816613ee584  v1.0.0_rpi-sdr-tx_rpi02w_armhf.img1dc4f21c4c13a90595ae12995850212fc533dcb380e27a9f86f83c59267daaa2  v1.0.0_rpi-sdr-tx_rpi02w_armhf.img.xz</code></pre></li></ul><hr><h5 id="2-Using-Install-script"><a href="#2-Using-Install-script" class="headerlink" title="2. Using Install script"></a>2. Using Install script</h5><ul><li><p>run:</p><ul><li><code>git clone https://github.com/KaliAssistant/rpi-sdr-tx.git &amp;&amp; cd rpi-sdr-tx</code></li><li><code>git checkout a83acab</code></li><li><code>sudo ./install.sh</code></li></ul></li><li><p>or</p><pre><code class="hljs bash">curl -sL https://github.com/KaliAssistant/rpi-sdr-tx/releases/download/v1.0.0/v1.0.0_rpi-sdr-tx_rpi02w_armhf_install.sh | <span class="hljs-built_in">sudo</span> bash</code></pre></li></ul><hr><h5 id="3-Build-Your-Own-Image"><a href="#3-Build-Your-Own-Image" class="headerlink" title="3. Build Your Own Image"></a>3. Build Your Own Image</h5><ol><li><p>Create a Debian-based VM or Docker container</p></li><li><p>Clone the builder branch:</p> <pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/KaliAssistant/rpi-sdr-tx.git -b builder</code></pre></li><li><p>Checkout to Version 1.0.0</p> <pre><code class="hljs bash"><span class="hljs-built_in">cd</span> rpi-sdr-tx &amp;&amp; git checkout c8bc4a5</code></pre></li><li><p>Setup builder config:</p> <pre><code class="hljs bash"><span class="hljs-built_in">cp</span> builder.txt.example builder.txt</code></pre><p> Edit <code>builder.txt</code> to set mirror URLs, USB serial, etc.</p> <pre><code class="hljs bash"><span class="hljs-comment"># Your USB gadget serialnumber</span><span class="hljs-comment"># Random usb_serial if not set</span>usb_serial=<span class="hljs-string">&quot;00000000000000000000000000000000&quot;</span><span class="hljs-comment"># Free space added to the rootfs in MiB</span><span class="hljs-comment"># TODO: free_space set 100, but real free_space is ~500+100 MiB (xz will compress)</span>free_space=100<span class="hljs-comment"># USB gadget RNDIS ETHERNET settings</span>rndis_ipv4_address=<span class="hljs-string">&quot;172.16.48.1/24&quot;</span>rndis_ipv4_gateway=<span class="hljs-string">&quot;172.16.48.254&quot;</span>rndis_ipv4_dns=<span class="hljs-string">&quot;1.1.1.1&quot;</span><span class="hljs-comment"># If you have your own preferred mirrors, set them here.(when build)</span><span class="hljs-comment">#mirror=&quot;http://raspbian.raspberrypi.com/raspbian&quot;</span><span class="hljs-comment"># If you have your own preferred mirrors, set them here.(after build)</span><span class="hljs-comment">#restore_mirror=&quot;http://raspbian.raspberrypi.com/raspbian&quot;</span><span class="hljs-comment"># Dont change this (stable)</span><span class="hljs-comment">#suite=&quot;bookworm&quot;</span><span class="hljs-comment"># Use packages from the listed components of the archive.</span><span class="hljs-comment">#components=&quot;main,contrib,non-free,rpi&quot;</span></code></pre></li><li><p>Run the build script as <code>root</code>:</p> <pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> ./rpi02w.sh</code></pre></li><li><p>Build will take ~1 hour. ☕ Grab a coffee.</p></li><li><p>After success, check <code>./build-image/</code> for your image and checksum.</p></li></ol><hr><h4 id="Getting-started-with-RPI-SDR-TX"><a href="#Getting-started-with-RPI-SDR-TX" class="headerlink" title="Getting started with RPI-SDR-TX"></a>Getting started with RPI-SDR-TX</h4><p>Full tutorial will in next post. coming soon.</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> sdr </tag>
+            
+            <tag> radio </tag>
+            
+            <tag> rpi </tag>
+            
+            <tag> diy </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> usb-gadget </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Blog online</title>
       <link href="/2025/06/20/Blog-online/"/>
       <url>/2025/06/20/Blog-online/</url>
