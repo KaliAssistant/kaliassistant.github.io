@@ -92,10 +92,7 @@ Key Featur.."><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" 
 
 <hr>
 <h4 id="How-WS2812B-over-SPI-Coexists-with-RPiTX’s-GPCLK-GPIO4"><a href="#How-WS2812B-over-SPI-Coexists-with-RPiTX’s-GPCLK-GPIO4" class="headerlink" title="How WS2812B over SPI Coexists with RPiTX’s GPCLK (GPIO4)"></a>How WS2812B over SPI Coexists with RPiTX’s GPCLK (GPIO4)</h4><p>RPiTX uses <strong>GPCLK0 on GPIO 4</strong> to generate RF continuously. Trying to bit‑bang WS2812 LEDs via PCM&#x2F;PWM clashes and hangs the SoC. Using <strong>SPI0 MOSI (GPIO 10)</strong> avoids this conflict.</p>
-<img src="/images/posts/dd34e7b2f8b8358c0a18bd97df4416266d2650dece804855fe5c19f50c4614ec.jpg">
-<img src="/images/posts/0ee3190db32a1ce935ce2c3fd3f748ac765bd34f8ff8bb5d96c0f8ec03865162.jpg">
-
-
+<p><img src="/images/posts/dd34e7b2f8b8358c0a18bd97df4416266d2650dece804855fe5c19f50c4614ec.jpg"><br><img src="/images/posts/0ee3190db32a1ce935ce2c3fd3f748ac765bd34f8ff8bb5d96c0f8ec03865162.jpg"></p>
 <h5 id="3‑bit-SPI-Encoding"><a href="#3‑bit-SPI-Encoding" class="headerlink" title="3‑bit SPI Encoding"></a>3‑bit SPI Encoding</h5><ul>
 <li><strong>Protocol timing</strong>: WS2812 expects ~1.25 µs per bit (T0H ~0.4 µs, T1H ~0.85 µs).</li>
 <li><strong>SPI works at ~2.5–4 MHz</strong>, so <strong>3 SPI bits encode one WS2812 bit</strong>:<ul>
@@ -120,8 +117,7 @@ Key Featur.."><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" 
 <li>SPI + DMA ensures <strong>consistent timing</strong> with minimal CPU load.</li>
 <li>Works well on BCM2835&#x2F;2837&#x2F;2711 SoCs.</li>
 </ul>
-<img src="/images/posts/17aeaf5c87d27ad9788cf9dc376e8431af08188dc2d07ac2ae5ba1c7cb2c885c.gif">
-
+<p><img src="/images/posts/17aeaf5c87d27ad9788cf9dc376e8431af08188dc2d07ac2ae5ba1c7cb2c885c.gif"></p>
 <h5 id="Minimal-Pseudocode-C"><a href="#Minimal-Pseudocode-C" class="headerlink" title="Minimal Pseudocode ( C )"></a>Minimal Pseudocode ( C )</h5><pre><code class="hljs c"><span class="hljs-type">uint8_t</span> encode3[<span class="hljs-number">2</span>] = &#123;<span class="hljs-number">0b100</span>, <span class="hljs-number">0b110</span>&#125;;
 <span class="hljs-type">void</span> <span class="hljs-title function_">sendPixel</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> G, <span class="hljs-type">uint8_t</span> R, <span class="hljs-type">uint8_t</span> B)</span> &#123;
   <span class="hljs-type">uint8_t</span> buf[<span class="hljs-number">9</span>];
