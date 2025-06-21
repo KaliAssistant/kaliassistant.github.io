@@ -65,24 +65,28 @@ Key Featur.."><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" 
         </strong>
     </p>
     <div style="color: #eeeeee;">
-    The output of the Raspberry Pi GPIO 4 (or 18) is a square wave, which contains harmonics.
-    For example, if you transmit on 28 MHz, you will also transmit on:
-    <p/><p/>
-    <li> 28 x 3 = 84 MHz
-    <li> 28 x 5 = 140 MHz
-    <li> 28 x 7 = 196 MHz
-    <li> ...
-    <p/><p/>
-    <img src="/images/posts/9ae2a21b0aac63093bdc4311b7c69f379bbd5030e22d8c7b91285e82183571ca.jpg">
-    <p style="color: #eeeeee;">
-    and actually you may distrub some important radio communication services. Please don't do this! You can get into trouble! You have been warned.
-    </p><p/>
-    <p style="color: #eeeeee;">
-    In addition to the squre wave output, the spectrum is also affected by the PWM-based amplitude modulation implemented in <i>rpitx</i>.
-    </p>
-    <li> If you want to connect this to a real antenna, you should use a <strong style="color: #eeeeee;">very good band-pass filter</strong>!
-    <li> Please check your signal output on a proper spectrum analyzer before ever using this on the air!
-    <li> In addition, only transmit if you have a proper license to do so.
+        The output of the Raspberry Pi GPIO 4 (or 18) is a square wave, which contains harmonics.
+        For example, if you transmit on 28 MHz, you will also transmit on:
+        <p/><p/>
+        <p style="color: #eeeeee;">
+            <li> 28 x 3 = 84 MHz
+            <li> 28 x 5 = 140 MHz
+            <li> 28 x 7 = 196 MHz
+            <li> ...
+        </p>
+        <p/><p/>
+        <img src="/images/posts/9ae2a21b0aac63093bdc4311b7c69f379bbd5030e22d8c7b91285e82183571ca.jpg">
+        <p style="color: #eeeeee;">
+            and actually you may distrub some important radio communication services. Please don't do this! You can get into trouble! You have been warned.
+        </p><p/>
+        <p style="color: #eeeeee;">
+            In addition to the squre wave output, the spectrum is also affected by the PWM-based amplitude modulation implemented in <i>rpitx</i>.
+        </p>
+        <p style="color: #eeeeee;">
+            <li> If you want to connect this to a real antenna, you should use a <strong style="color: #eeeeee;">very good band-pass filter</strong>!
+            <li> Please check your signal output on a proper spectrum analyzer before ever using this on the air!
+            <li> In addition, only transmit if you have a proper license to do so.
+        </p>
     </div>
 </blockquote>
 
