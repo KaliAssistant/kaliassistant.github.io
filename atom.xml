@@ -6,7 +6,7 @@
   <link href="https://kaliassistant.github.io/atom.xml" rel="self"/>
   
   <link href="https://kaliassistant.github.io/"/>
-  <updated>2025-07-29T04:25:51.235Z</updated>
+  <updated>2025-07-29T07:04:52.977Z</updated>
   <id>https://kaliassistant.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Introducing Fox-Jack: The Open Source Alternative to Hak5 Shark Jack</title>
+    <link href="https://kaliassistant.github.io/2025/07/29/Introducing-Fox-Jack-The-Open-Source-Alternative-to-Hak5-Shark-Jack/"/>
+    <id>https://kaliassistant.github.io/2025/07/29/Introducing-Fox-Jack-The-Open-Source-Alternative-to-Hak5-Shark-Jack/</id>
+    <published>2025-07-29T07:04:52.000Z</published>
+    <updated>2025-07-29T07:04:52.977Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/images/posts/10e2bd2d7939be81bec44b14fea5a4e4b344ddde3bf0d9f10d65b5c4a227f30c.jpg" alt="cover"></p><h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><p>The <strong>Fox-Jack</strong> is a DIY, open-source LAN attack and automation gadget built for pentesters, red teamers, and serious tinkerers. Inspired by the Hak5 Shark Jack, this pocket-sized tool leverages the <strong>Luckfox Pico Max (RV1106G3)</strong> to deliver RNDIS network emulation, automated payload execution, and real-time LED feedback — all packed into a USB-powered form factor.</p><p>Designed for flexibility, speed, and full customizability, Fox-Jack supports dropbox-style operations, network scanning, and scripted payloads in a clean, modular system. Best of all? No proprietary lock-in. It’s cheap, hackable, and entirely yours to build.</p><h4 id="Hardware-Overview"><a href="#Hardware-Overview" class="headerlink" title="Hardware Overview"></a>Hardware Overview</h4><p>Fox-Jack is based on the <strong>Luckfox Pico Max</strong>, a compact SoC board featuring:</p><ul><li><strong>Rockchip RV1106G3</strong>: Cortex-A7 core</li><li><strong>Built-in Ethernet and USB-OTG</strong> support</li><li><strong>1.8V ADC</strong> for battery voltage monitoring</li><li><strong>256MB RAM</strong> and SPI-NAND-flash&#x2F;SD boot</li></ul><p>A custom extension board stacks beneath the Pico Max using PCB stacking techniques (like the iPhone’s interposer board). The ext board includes:</p><ul><li><strong>WS2812B RGB LED output</strong> (via SPI)</li><li><strong>Li-Ion battery input with ADC monitoring</strong></li><li><strong>Battery &amp; power management</strong></li><li><strong>2-position DIP switch</strong> to select payloads</li></ul><h4 id="PCB-Stack-Design"><a href="#PCB-Stack-Design" class="headerlink" title="PCB Stack Design"></a>PCB Stack Design</h4><p>Fox-Jack uses two boards:</p><ul><li><code>FOX-JACK_EXT_BOARD_TOP</code> (0.8mm): main logic and interface board</li><li><code>FOX-JACK_EXT_BOARD_MID</code> (1.6mm): castellated connector that sandwiches with the Pico</li></ul><p><img src="/images/posts/1eb98431aed98aefdffa51e964fe2068f1f0a3f668f5d70df1a0ae2d731efdea.jpg"><br><img src="/images/posts/1e9fbd0ff71182b392ac7aa930249e7edd84c02409b97c0f1b3040776b026d95.jpg"></p><p>This stacking saves space and keeps everything solid.</p><blockquote style="font-family: system-ui, sans-serif; font-size: 0.95em; border-left: 4px solid; border-radius: 6px;  border-color:#58a6ff; background: rgba(255,255,255,0.05); padding: 0.5em;">    <p style="color: #8cd0ff;">        <svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true" style="fill: currentColor;">            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z">            </path>        </svg>        <strong style="color: currentColor;">        Note        </strong>    </p>    <div style="color: #eeeeee;">        if using <strong style="color: #eeeeee;">JLCPCB</strong>, set Castellated Holes to <strong style="color: #eeeeee;">JLCPCB</strong>No</strong>, or the cost may jump from ~$4 to $40+.        <p/><p/>        <img src="/images/posts/543c427e5d57b12e7131653fac33ef7a7574caaaf8440c9e60a0d6d750cb00e3.png">        <p/><p/>        <img src="/images/posts/37fb8b3b1fd86f5878e7c6c8ccfadeed6e06fdddddf1ccf5b3516c14fc075bea.png">        <p/><p/>        This design <strong style="color: #eeeeee;">does not use true castellated holes</strong>. Instead, it relies on <strong style="color: #eeeeee;">DIY-style side solder bridging</strong> using exposed edge pads on a regular PCB. This approach is <strong style="color: #eeeeee;">cost-efficient, strong enough</strong>, and perfectly suited for <strong style="color: #eeeeee;">DIY assembly</strong> — no need for expensive edge plating.    </div></blockquote><h4 id="Key-Features"><a href="#Key-Features" class="headerlink" title="Key Features"></a>Key Features</h4><ul><li><strong>Plug-and-Play Operation</strong> via USB (RNDIS &#x2F; CDC ECM)</li><li><strong>RGB LED Feedback</strong> using binary .bin frames or shared memory (<code>shmled</code>)</li><li><strong>Payload Scripting</strong> using standard bash shell scripts with BusyBox</li><li><strong>Battery Monitoring</strong> via SARADC</li><li><strong>Custom Startup Scripts</strong>: <code>rcS</code>, <code>rcK</code>, and <code>/etc/init.d/SXXname</code></li></ul><h4 id="Payload-System"><a href="#Payload-System" class="headerlink" title="Payload System"></a>Payload System</h4><p>Payloads are stored in <code>&lt;UMS_DISK&gt;/payloads/modN.d/</code> directories (where N &#x3D; 1, 2, 3 for modes).</p><p>Each payload file follows this format:</p><pre><code class="hljs plaintext">E????-*.payload</code></pre><p>Examples:</p><ul><li><code>E0000-arp-scan.payload</code></li><li><code>E0001-nmap-fast-scan.payload</code></li></ul><p>Payloads can be written by hand or copied to the USB Mass Storage volume (<code>&lt;UMS_DISK&gt;/payloads/mod1.d/</code>). When the system boots, it executes the selected payload based on switch or mode logic.</p><p><img src="/images/posts/ad29a51c9fb6fe625cac34499b9237aca10e68f1585e0ce220de290c0729c5e2.gif"></p><blockquote style="font-family: system-ui, sans-serif; font-size: 0.95em; border-left: 4px solid; border-radius: 6px;  border-color:#58a6ff; background: rgba(255,255,255,0.05); padding: 0.5em;">    <p style="color: #8cd0ff;">        <svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true" style="fill: currentColor;">            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z">            </path>        </svg>        <strong style="color: currentColor;">        Important Note        </strong>    </p>    <p style="color: #eeeeee;">    GNU Coreutils is not supported out-of-box due to buildroot's Y2K38 compatibility issue. Use BusyBox equivalents instead.    </p></blockquote><h4 id="Example-Use-Cases"><a href="#Example-Use-Cases" class="headerlink" title="Example Use Cases"></a>Example Use Cases</h4><ul><li><strong>Quick Nmap Recon</strong> of a target LAN</li><li><strong>ARP Scans</strong> for inventory mapping</li><li><strong>Auto-Drop Payloads</strong> on Ethernet plug-in</li><li><strong>LED Indicators</strong> for payload stage&#x2F;status</li></ul><h4 id="Build-Your-Own"><a href="#Build-Your-Own" class="headerlink" title="Build Your Own"></a>Build Your Own</h4><h5 id="Open-Source"><a href="#Open-Source" class="headerlink" title="Open Source"></a>Open Source</h5><p>All source files, example payloads, and PCB designs are hosted on <a href="https://github.com/KaliAssistant/Fox-Jack">GitHub</a>:</p><p><strong><a href="https://github.com/KaliAssistant/Fox-Jack">https://github.com/KaliAssistant/Fox-Jack</a></strong></p><p>Feel free to fork, remix, or contribute!</p><h4 id="Disclaimer"><a href="#Disclaimer" class="headerlink" title="Disclaimer"></a>Disclaimer</h4><p>Fox-Jack is intended for authorized security testing, educational, and research purposes only.<br>Use of this device without explicit permission on networks or systems you do not own or have authorization to test is illegal and unethical.<br>The author and contributors are not responsible for any misuse or damage caused by this tool.<br>Please ensure you comply with all applicable laws and obtain proper consent before deployment.</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/images/posts/10e2bd2d7939be81bec44b14fea5a4e4b344ddde3bf0d9f10d65b5c4a227f30c.jpg&quot; alt=&quot;cover&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;Introduction&quot;&gt;&lt;a h</summary>
+      
+    
+    
+    
+    
+    <category term="diy" scheme="https://kaliassistant.github.io/tags/diy/"/>
+    
+    <category term="linux" scheme="https://kaliassistant.github.io/tags/linux/"/>
+    
+    <category term="usb-gadget" scheme="https://kaliassistant.github.io/tags/usb-gadget/"/>
+    
+    <category term="buildroot" scheme="https://kaliassistant.github.io/tags/buildroot/"/>
+    
+    <category term="hacker-gadgets" scheme="https://kaliassistant.github.io/tags/hacker-gadgets/"/>
+    
+    <category term="hak5" scheme="https://kaliassistant.github.io/tags/hak5/"/>
+    
+  </entry>
   
   <entry>
     <title>Introducing RPI-SDR-TX Version 1.0.0 (Stable version, First release)</title>
@@ -35,17 +68,17 @@
     
     
     
-    <category term="sdr" scheme="https://kaliassistant.github.io/tags/sdr/"/>
-    
-    <category term="radio" scheme="https://kaliassistant.github.io/tags/radio/"/>
-    
-    <category term="rpi" scheme="https://kaliassistant.github.io/tags/rpi/"/>
-    
     <category term="diy" scheme="https://kaliassistant.github.io/tags/diy/"/>
     
     <category term="linux" scheme="https://kaliassistant.github.io/tags/linux/"/>
     
     <category term="usb-gadget" scheme="https://kaliassistant.github.io/tags/usb-gadget/"/>
+    
+    <category term="sdr" scheme="https://kaliassistant.github.io/tags/sdr/"/>
+    
+    <category term="radio" scheme="https://kaliassistant.github.io/tags/radio/"/>
+    
+    <category term="rpi" scheme="https://kaliassistant.github.io/tags/rpi/"/>
     
     <category term="intro" scheme="https://kaliassistant.github.io/tags/intro/"/>
     
@@ -70,17 +103,17 @@
     
     
     
-    <category term="sdr" scheme="https://kaliassistant.github.io/tags/sdr/"/>
-    
-    <category term="radio" scheme="https://kaliassistant.github.io/tags/radio/"/>
-    
-    <category term="rpi" scheme="https://kaliassistant.github.io/tags/rpi/"/>
-    
     <category term="diy" scheme="https://kaliassistant.github.io/tags/diy/"/>
     
     <category term="linux" scheme="https://kaliassistant.github.io/tags/linux/"/>
     
     <category term="usb-gadget" scheme="https://kaliassistant.github.io/tags/usb-gadget/"/>
+    
+    <category term="sdr" scheme="https://kaliassistant.github.io/tags/sdr/"/>
+    
+    <category term="radio" scheme="https://kaliassistant.github.io/tags/radio/"/>
+    
+    <category term="rpi" scheme="https://kaliassistant.github.io/tags/rpi/"/>
     
   </entry>
   
